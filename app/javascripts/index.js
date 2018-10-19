@@ -6,38 +6,47 @@ const CONFIG = {
   oWidth: 2 / 3,
 };
 
-const next = ({ draw, prevOWidth = 0, prevOHeight = 0 }) => {
+const recurse = ({ draw, prevOWidth = 0, prevOHeight = 0 }) => {
   const boundingRectWidth = ((prevOWidth / 2) * Math.SQRT2);
+
   const offset = ((prevOWidth - boundingRectWidth) / 2);
-  const boundingRect = draw
-    .rect(
-      (boundingRectWidth + offset) || window.innerWidth,
-      ((prevOHeight / 2) * Math.SQRT2) || window.innerHeight
-    )
-    .fill('none');
 
-  boundingRect.move(window.innerWidth - boundingRect.width(), 0).cy(window.innerHeight / 2);
+  const boundingRect =
+    draw
+      .rect(
+        (boundingRectWidth + offset) || window.innerWidth,
+        ((prevOHeight / 2) * Math.SQRT2) || window.innerHeight
+      )
+      .fill('none');
 
-  const nextN = draw
-    .polyline([
-      [boundingRect.x(), (boundingRect.y() + boundingRect.height())],
-      [boundingRect.x(), boundingRect.y()],
-      [boundingRect.x() + (boundingRect.width() * CONFIG.nWidth), (boundingRect.y() + boundingRect.height())],
-      [boundingRect.x() + (boundingRect.width() * CONFIG.nWidth), boundingRect.y()],
-    ])
-    .fill('none').stroke({ width: CONFIG.strokeWidth });
+  boundingRect
+    .move(window.innerWidth - boundingRect.width(), 0)
+    .cy(window.innerHeight / 2);
 
-  const nextO = draw
-    .ellipse((boundingRect.width() * CONFIG.nWidth) * 2, boundingRect.height())
-    .fill('none').stroke({ width: CONFIG.strokeWidth })
-    .move(boundingRect.x() + nextN.width(), boundingRect.y());
+  const letterN =
+    draw
+      .polyline([
+        [boundingRect.x(), (boundingRect.y() + boundingRect.height())],
+        [boundingRect.x(), boundingRect.y()],
+        [boundingRect.x() + (boundingRect.width() * CONFIG.nWidth), (boundingRect.y() + boundingRect.height())],
+        [boundingRect.x() + (boundingRect.width() * CONFIG.nWidth), boundingRect.y()],
+      ])
+      .fill('none')
+      .stroke({ width: CONFIG.strokeWidth });
 
-  if (nextO.width() < 1) return;
+  const letterO =
+    draw
+      .ellipse((boundingRect.width() * CONFIG.nWidth) * 2, boundingRect.height())
+      .fill('none')
+      .stroke({ width: CONFIG.strokeWidth })
+      .move(boundingRect.x() + letterN.width(), boundingRect.y());
 
-  next({
+  if (letterO.width() < CONFIG.strokeWidth) return;
+
+  recurse({
     draw,
-    prevOWidth: nextO.width(),
-    prevOHeight: nextO.height(),
+    prevOWidth: letterO.width(),
+    prevOHeight: letterO.height(),
   });
 };
 
@@ -46,7 +55,7 @@ export default () => {
     app: document.getElementById('App'),
   };
 
-  const draw = () => {
+  const init = () => {
     DOM.app.innerHTML = '';
 
     const w = window.innerWidth;
@@ -54,9 +63,9 @@ export default () => {
 
     const draw = SVG('App').size(w, h);
 
-    next({ draw });
+    recurse({ draw });
   };
 
-  draw();
-  window.addEventListener('resize', () => draw());
+  init();
+  window.addEventListener('resize', init);
 };
