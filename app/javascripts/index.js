@@ -1,9 +1,19 @@
+import parameters from 'queryparams';
 import SVG from 'svg.js';
 
-const CONFIG = {
-  strokeWidth: 1,
+window.parameters = parameters;
+
+const CONFIG = parameters({
+  limit: 100,
+  strokeWidth: 2,
+  strokeColor: 'black',
   nWidth: 1 / 3,
   oWidth: 2 / 3,
+});
+
+const STROKE = {
+  width: CONFIG.strokeWidth,
+  color: CONFIG.strokeColor,
 };
 
 const recurse = ({ draw, prevOWidth = 0, prevOHeight = 0 }) => {
@@ -32,16 +42,16 @@ const recurse = ({ draw, prevOWidth = 0, prevOHeight = 0 }) => {
         [boundingRect.x() + (boundingRect.width() * CONFIG.nWidth), boundingRect.y()],
       ])
       .fill('none')
-      .stroke({ width: CONFIG.strokeWidth });
+      .stroke(STROKE);
 
   const letterO =
     draw
       .ellipse((boundingRect.width() * CONFIG.nWidth) * 2, boundingRect.height())
       .fill('none')
-      .stroke({ width: CONFIG.strokeWidth })
+      .stroke(STROKE)
       .move(boundingRect.x() + letterN.width(), boundingRect.y());
 
-  if (letterO.width() < CONFIG.strokeWidth) return;
+  if (letterO.width() < CONFIG.limit) return;
 
   recurse({
     draw,
