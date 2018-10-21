@@ -4,7 +4,7 @@ import SVG from 'svg.js';
 window.parameters = parameters;
 
 const CONFIG = parameters({
-  limit: 100,
+  limit: 5,
   strokeWidth: 2,
   strokeColor: 'black',
   nWidth: 1 / 3,
