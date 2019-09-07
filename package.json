@@ -12,13 +12,13 @@
     "build": "parcel build src/index.html"
   },
   "devDependencies": {
-    "eslint": "^6.3.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "parcel": "^1.12.3"
+    "eslint": "6.3.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-plugin-import": "2.18.2",
+    "parcel": "1.12.3"
   },
   "dependencies": {
     "queryparams": "0.1.0",
-    "svg.js": "^2.7.1"
+    "svg.js": "2.7.1"
   }
 }
