@@ -15,7 +15,7 @@
     "eslint": "6.5.1",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
-    "parcel": "1.12.3"
+    "parcel": "1.12.4"
   },
   "dependencies": {
     "queryparams": "0.1.0",
