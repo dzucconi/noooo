@@ -1,4 +1,4 @@
-# Nooooo
+# Noooo
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/abde3613-0d3d-4f0b-acbd-321ece6f387d/deploy-status)](https://app.netlify.com/sites/damonzucconi-noooo/deploys)
 
