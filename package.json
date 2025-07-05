@@ -12,7 +12,7 @@
     "build": "parcel build src/index.html"
   },
   "devDependencies": {
-    "eslint": "6.8.0",
+    "eslint": "9.30.1",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.32.0",
     "parcel": "1.12.4"
